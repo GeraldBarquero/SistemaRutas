@@ -11,23 +11,13 @@ package domain;
  * @author Gerald
  */
 public class Arista {
-    private int idArista;
     private int peso;
 
     public Arista() {
     }
 
-    public Arista(int idArista, int peso) {
-        this.idArista = idArista;
+    public Arista(int peso) {
         this.peso = peso;
-    }
-
-    public int getIdArista() {
-        return idArista;
-    }
-
-    public void setIdArista(int idArista) {
-        this.idArista = idArista;
     }
 
     public int getPeso() {

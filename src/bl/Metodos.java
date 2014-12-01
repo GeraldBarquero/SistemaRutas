@@ -6,8 +6,9 @@
 
 package bl;
 
-import domain.Vertice;
 import bl.Grafo;
+import domain.Arista;
+import domain.Vertice;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,8 +33,20 @@ public class Metodos {
         }
     }
     
-    public void crearArista(){
-        
+    public void crearArista(Vertice ini, Vertice fin, int peso){
+        Arista nueva = new Arista();
+        nueva.setPeso(peso);
+    }
+    
+    public void crearRuta(Vertice ini, Vertice fin, Arista arista){
+        crearRutaRecur(ini, fin, arista);
+        crearRutaRecur(fin, ini, arista);
+    }
+    
+    public void crearRutaRecur(Vertice ini, Vertice fin, Arista arista){
+        if(ini !=null && fin !=null){
+            ini.addVerticeAdyacente(arista, fin);
+        }
     }
     
     
