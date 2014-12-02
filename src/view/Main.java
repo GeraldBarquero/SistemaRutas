@@ -46,6 +46,9 @@ public class Main {
         metodo.rutasHabilitadas("E");
         metodo.eliminarVertice("A");
         metodo.mostrarListaVertices();
+        metodo.rutasHabilitadas("A");
+        metodo.rutasHabilitadas("B");
+        metodo.rutasHabilitadas("C");
         metodo.rutasHabilitadas("D");        
         metodo.rutasHabilitadas("E");
     }
