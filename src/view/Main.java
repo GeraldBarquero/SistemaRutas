@@ -34,11 +34,16 @@ public class Main {
         metodo.crearVertice("D");
         metodo.crearVertice("E");
         metodo.mostrarListaVertices();
-        metodo.crearArista(new Vertice("A"), new Vertice("E"), 5);
-        metodo.crearArista(new Vertice("A"), new Vertice("D"), 5);
-        metodo.crearArista(new Vertice("B"), new Vertice("C"), 5);
-        metodo.crearArista(new Vertice("C"), new Vertice("D"), 5);
-        metodo.crearArista(new Vertice("D"), new Vertice("E"), 5);
+        metodo.crearArista("A", "E", 5);
+        metodo.crearArista("A", "D", 5);
+        metodo.crearArista("B", "C", 5);
+        metodo.crearArista("C", "D", 5);
+        metodo.crearArista("D", "E", 5);
+        metodo.rutasHabilitadas("A");
+        metodo.rutasHabilitadas("B");
+        metodo.rutasHabilitadas("C");
+        metodo.rutasHabilitadas("D");        
+        metodo.rutasHabilitadas("E");
     }
     
 }

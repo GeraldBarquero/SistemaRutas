@@ -9,6 +9,8 @@ package bl;
 import bl.Grafo;
 import domain.Arista;
 import domain.Vertice;
+import domain.Ruta;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,9 +35,12 @@ public class Metodos {
         }
     }
     
-    public void crearArista(Vertice ini, Vertice fin, int peso){
+    public void crearArista(String nombreIni, String nombreFin, int peso){
+        Vertice ini = grafo.buscarVertice(nombreIni);
+        Vertice fin = grafo.buscarVertice(nombreFin);
         Arista nueva = new Arista();
         nueva.setPeso(peso);
+        crearRuta(ini, fin, nueva);
     }
     
     public void crearRuta(Vertice ini, Vertice fin, Arista arista){
@@ -47,6 +52,22 @@ public class Metodos {
         if(ini !=null && fin !=null){
             ini.addVerticeAdyacente(arista, fin);
         }
+    }
+    
+    public void rutasHabilitadas(String nombreBuscar){
+        Vertice buscar = grafo.buscarVertice(nombreBuscar);
+        ArrayList<Ruta> listAux = null;
+        if(!buscar.getListaDestinos().isEmpty()){
+            listAux = new ArrayList<Ruta>();
+            for(Ruta ruta:buscar.getListaDestinos()){
+                listAux.add(ruta);
+            }
+        }
+        System.out.println("Destinos disponibles desde el vertice: "+nombreBuscar);
+        for (Ruta listAux1 : listAux) {
+            System.out.println("Vertice Destino: " + listAux1.getVertice().getNombre() + " Peso de la Arista: " + listAux1.getArista().getPeso());
+        }
+        
     }
     
     
