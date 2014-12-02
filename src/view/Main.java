@@ -35,13 +35,17 @@ public class Main {
         metodo.crearVertice("E");
         metodo.mostrarListaVertices();
         metodo.crearArista("A", "E", 5);
-        metodo.crearArista("A", "D", 5);
-        metodo.crearArista("B", "C", 5);
-        metodo.crearArista("C", "D", 5);
-        metodo.crearArista("D", "E", 5);
+        metodo.crearArista("A", "D", 10);
+        metodo.crearArista("B", "C", 8);
+        metodo.crearArista("C", "D", 20);
+        metodo.crearArista("D", "E", 17);
         metodo.rutasHabilitadas("A");
         metodo.rutasHabilitadas("B");
         metodo.rutasHabilitadas("C");
+        metodo.rutasHabilitadas("D");        
+        metodo.rutasHabilitadas("E");
+        metodo.eliminarVertice("A");
+        metodo.mostrarListaVertices();
         metodo.rutasHabilitadas("D");        
         metodo.rutasHabilitadas("E");
     }

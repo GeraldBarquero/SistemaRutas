@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bl;
 
 import bl.Grafo;
@@ -18,57 +17,76 @@ import javax.swing.JOptionPane;
  * @author Gerald
  */
 public class Metodos {
+
     Grafo grafo = new Grafo();
-    public void crearVertice(String dato){
-        if(dato !=null){
+
+    public void crearVertice(String dato) {
+        if (dato != null) {
             Vertice nuevo = new Vertice(dato);
-            if(grafo.agregarVertice(nuevo)){
+            if (grafo.agregarVertice(nuevo)) {
                 JOptionPane.showMessageDialog(null, "Se agrego correctamente el vertice");
             }
         }
     }
-    
-    public void mostrarListaVertices(){
-        int cantVertice = grafo.getListaVertice().size();        
-        for (int i=0; i<cantVertice;i++){
-            System.out.println("Vertice: "+grafo.getListaVertice().get(i).getNombre());
+
+    public void mostrarListaVertices() {
+        int cantVertice = grafo.getListaVertice().size();
+        for (int i = 0; i < cantVertice; i++) {
+            System.out.println("Vertice: " + grafo.getListaVertice().get(i).getNombre());
         }
     }
-    
-    public void crearArista(String nombreIni, String nombreFin, int peso){
+
+    public void crearArista(String nombreIni, String nombreFin, int peso) {
         Vertice ini = grafo.buscarVertice(nombreIni);
         Vertice fin = grafo.buscarVertice(nombreFin);
         Arista nueva = new Arista();
         nueva.setPeso(peso);
         crearRuta(ini, fin, nueva);
     }
-    
-    public void crearRuta(Vertice ini, Vertice fin, Arista arista){
+
+    public void crearRuta(Vertice ini, Vertice fin, Arista arista) {
         crearRutaRecur(ini, fin, arista);
         crearRutaRecur(fin, ini, arista);
     }
-    
-    public void crearRutaRecur(Vertice ini, Vertice fin, Arista arista){
-        if(ini !=null && fin !=null){
+
+    public void crearRutaRecur(Vertice ini, Vertice fin, Arista arista) {
+        if (ini != null && fin != null) {
             ini.addVerticeAdyacente(arista, fin);
         }
     }
-    
-    public void rutasHabilitadas(String nombreBuscar){
+
+    public void rutasHabilitadas(String nombreBuscar) {
         Vertice buscar = grafo.buscarVertice(nombreBuscar);
         ArrayList<Ruta> listAux = null;
-        if(!buscar.getListaDestinos().isEmpty()){
+        if (!buscar.getListaDestinos().isEmpty()) {
             listAux = new ArrayList<Ruta>();
-            for(Ruta ruta:buscar.getListaDestinos()){
+            for (Ruta ruta : buscar.getListaDestinos()) {
                 listAux.add(ruta);
             }
         }
-        System.out.println("Destinos disponibles desde el vertice: "+nombreBuscar);
+        System.out.println("Destinos disponibles desde el vertice: " + nombreBuscar);
         for (Ruta listAux1 : listAux) {
             System.out.println("Vertice Destino: " + listAux1.getVertice().getNombre() + " Peso de la Arista: " + listAux1.getArista().getPeso());
         }
-        
+
     }
-    
-    
+
+    public void eliminarVertice(String nombreEliminar) {
+        Vertice eliminar = grafo.buscarVertice(nombreEliminar);
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el vertice '" + nombreEliminar + "'?", "Atención", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
+            if (!eliminar.getListaDestinos().isEmpty()) {
+                respuesta = JOptionPane.showConfirmDialog(null, "¿El vertice '" + nombreEliminar + "' cuenta con rutas a otros vertices. Siempre desea eliminarlo?", "Atención", JOptionPane.YES_NO_OPTION);
+                if (respuesta == 0) {
+                    grafo.getListaVertice().remove(eliminar);
+                    eliminarArista();
+                }
+            }
+        }
+    }
+
+    public void eliminarArista() {
+
+    }
+
 }
