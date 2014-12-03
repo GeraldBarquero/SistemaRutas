@@ -82,9 +82,15 @@ public class Metodos {
             if (!eliminar.getListaDestinos().isEmpty()) {
                 respuesta = JOptionPane.showConfirmDialog(null, "¿El vertice '" + nombreEliminar + "' cuenta con rutas a otros vertices. Siempre desea eliminarlo?", "Atención", JOptionPane.YES_NO_OPTION);
                 if (respuesta == 0) {
-                    for (int i = 1; i <= eliminar.getListaDestinos().size(); i++) {
-                        Vertice aux = eliminar.getListaDestinos().get(i).getVertice();
-                        eliminarArista(aux, eliminar);
+                    for (int i = 0; i <= eliminar.getListaDestinos().size(); i++) {
+                        if(i==eliminar.getListaDestinos().size()){
+                            Vertice aux = eliminar.getListaDestinos().get((i-1)).getVertice();
+                            eliminarArista(aux, eliminar);
+                        }else{
+                            Vertice aux = eliminar.getListaDestinos().get((i)).getVertice();
+                            eliminarArista(aux, eliminar);
+                        }
+                        
                     }
                     grafo.getListaVertice().remove(eliminar);
                 }
@@ -97,7 +103,7 @@ public class Metodos {
     public void eliminarArista(Vertice ini, Vertice fin) {
         boolean encontrado = true;
         if (!ini.getListaDestinos().isEmpty()) {
-            for (int i = 0; i < ini.getListaDestinos().size(); i++) {
+            for (int i = 0; i <= ini.getListaDestinos().size(); i++) {
                 if (ini.getListaDestinos().get(i).getVertice() == fin) {
                     ini.getListaDestinos().remove(i);
                     encontrado = true;
@@ -114,7 +120,7 @@ public class Metodos {
         }
 
         if (!fin.getListaDestinos().isEmpty()) {
-            for (int i = 0; i < fin.getListaDestinos().size(); i++) {
+            for (int i = 0; i <= fin.getListaDestinos().size(); i++) {
                 if (fin.getListaDestinos().get(i).getVertice() == ini) {
                     fin.getListaDestinos().remove(i);
                     encontrado = true;
@@ -131,12 +137,41 @@ public class Metodos {
         }
     }
     
-    public void actualizarVertice(){
-        
+    public void actualizarVertice(String actual, String nuevo){
+        Vertice cambiar = grafo.buscarVertice(actual);
+        cambiar.setNombre(nuevo);
     }
     
-    public void actualizarArista(){
+    public void actualizarAristaBuscar(String ini, String fin, int peso){
+        Vertice iniVert = grafo.buscarVertice(ini);
+        Vertice finVert = grafo.buscarVertice(fin);        
+        if(actualizarArista(iniVert, finVert, peso)){
+            JOptionPane.showMessageDialog(null, "La arista del vertice '"+ini+"' al vertice '"+fin+"' se actualizo correctamente.");
+        }     
+    }
+    
+    public boolean actualizarArista(Vertice ini, Vertice fin, int peso){
+        boolean realizado = false;
+        if(!ini.getListaDestinos().isEmpty()){
+            for (int i = 0; i < ini.getListaDestinos().size()+1; i++) {
+                if(ini.getListaDestinos().get(i).getVertice()==fin){
+                    ini.getListaDestinos().get(i).getArista().setPeso(peso);
+                    realizado = true;
+                    break;
+                }
+            }
+        }
+        if(!fin.getListaDestinos().isEmpty()){
+            for (int i = 0; i < fin.getListaDestinos().size()+1; i++) {
+                if(fin.getListaDestinos().get(i).getVertice()==ini){
+                    fin.getListaDestinos().get(i).getArista().setPeso(peso);
+                    realizado = true;
+                    break;
+                }
+            }
+        }
         
+        return realizado;
     }
 
 }

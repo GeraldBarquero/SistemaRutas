@@ -34,6 +34,7 @@ public class Main {
         metodo.crearVertice("D");
         metodo.crearVertice("E");
         metodo.mostrarListaVertices();
+
         metodo.crearArista("A", "E", 5);
         metodo.crearArista("A", "D", 10);
         metodo.crearArista("B", "C", 8);
@@ -51,6 +52,10 @@ public class Main {
         metodo.rutasHabilitadas("C");
         metodo.rutasHabilitadas("D");        
         metodo.rutasHabilitadas("E");
+        
+        metodo.actualizarAristaBuscar("B", "C", 25);
+        metodo.rutasHabilitadas("B");
+        metodo.rutasHabilitadas("C");
     }
     
 }
