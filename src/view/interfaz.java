@@ -7,6 +7,8 @@
 package view;
 
 import bl.Metodos;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -41,6 +43,7 @@ public class interfaz extends javax.swing.JFrame {
         deleteVertice = new javax.swing.JToggleButton();
         updateArista = new javax.swing.JToggleButton();
         updateVertice = new javax.swing.JToggleButton();
+        jb_buscarRuta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,11 +61,11 @@ public class interfaz extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 673, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jLabel1.getAccessibleContext().setAccessibleName("Lb_Fondo");
@@ -75,13 +78,17 @@ public class interfaz extends javax.swing.JFrame {
 
         updateVertice.setText("Actualizar Vertice");
 
+        jb_buscarRuta.setText("Buscar ruta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1041, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,8 +101,11 @@ public class interfaz extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cb_verticeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jb_buscarRuta)))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -105,7 +115,9 @@ public class interfaz extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb_verticeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(136, 136, 136)
+                .addGap(95, 95, 95)
+                .addComponent(jb_buscarRuta)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(deleteArista)
@@ -115,7 +127,7 @@ public class interfaz extends javax.swing.JFrame {
                 .addComponent(updateArista)
                 .addGap(28, 28, 28)
                 .addComponent(updateVertice)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -158,13 +170,13 @@ public class interfaz extends javax.swing.JFrame {
     }
     
     public void iniciar(){
+        
         metodo.crearVertice("A");
         metodo.crearVertice("B");
         metodo.crearVertice("C");
         metodo.crearVertice("D");
         metodo.crearVertice("E");
-        metodo.mostrarListaVertices();
-
+        cargarComboBox();
         metodo.crearArista("A", "E", 5);
         metodo.crearArista("A", "D", 10);
         metodo.crearArista("B", "C", 8);
@@ -187,6 +199,19 @@ public class interfaz extends javax.swing.JFrame {
         metodo.rutasHabilitadas("B");
         metodo.rutasHabilitadas("C");
     }
+    
+    public void cargarComboBox(){
+        DefaultComboBoxModel mdlInicio = new DefaultComboBoxModel();
+        DefaultComboBoxModel mdlFinal = new DefaultComboBoxModel();
+        cb_verticeInicio.setModel(mdlInicio);
+        cb_verticeFinal.setModel(mdlFinal);
+        ArrayList<String> lista = metodo.mostrarListaVertices();
+        for(int i=0;i<lista.size();i++){
+            String nombre = lista.get(i);
+            mdlInicio.addElement(nombre);
+            mdlFinal.addElement(nombre);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cb_verticeFinal;
@@ -196,6 +221,7 @@ public class interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jb_buscarRuta;
     private javax.swing.JToggleButton updateArista;
     private javax.swing.JToggleButton updateVertice;
     // End of variables declaration//GEN-END:variables

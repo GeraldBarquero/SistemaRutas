@@ -29,11 +29,14 @@ public class Metodos {
         }
     }
 
-    public void mostrarListaVertices() {
+    public ArrayList mostrarListaVertices() {
+        ArrayList<String> listaNombre= new ArrayList<String>();
         int cantVertice = grafo.getListaVertice().size();
         for (int i = 0; i < cantVertice; i++) {
-            System.out.println("Vertice: " + grafo.getListaVertice().get(i).getNombre());
+            listaNombre.add(grafo.getListaVertice().get(i).getNombre());
+            //System.out.println("Vertice: " + grafo.getListaVertice().get(i).getNombre());
         }
+        return listaNombre;
     }
 
     public void crearArista(String nombreIni, String nombreFin, int peso) {
