@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
+import bl.Grafo;
 import bl.Metodos;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
@@ -15,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
  * @author gbarquero
  */
 public class interfaz extends javax.swing.JFrame {
+
     Metodos metodo = new Metodos();
 
     /**
@@ -22,7 +25,6 @@ public class interfaz extends javax.swing.JFrame {
      */
     public interfaz() {
         initComponents();
-        iniciar();
     }
 
     /**
@@ -37,13 +39,16 @@ public class interfaz extends javax.swing.JFrame {
         cb_verticeInicio = new javax.swing.JComboBox();
         cb_verticeFinal = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        panelGrafo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         deleteArista = new javax.swing.JToggleButton();
         deleteVertice = new javax.swing.JToggleButton();
         updateArista = new javax.swing.JToggleButton();
         updateVertice = new javax.swing.JToggleButton();
         jb_buscarRuta = new javax.swing.JButton();
+        jTf_ejeX = new javax.swing.JTextField();
+        jTf_ejeY = new javax.swing.JTextField();
+        jb_cargarGrafo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,20 +60,25 @@ public class interfaz extends javax.swing.JFrame {
         jPanel1.setToolTipText("");
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mapaFondo.png"))); // NOI18N
+        panelGrafo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mapaFondo.png"))); // NOI18N
+        panelGrafo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelGrafoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(panelGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 916, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(panelGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.getAccessibleContext().setAccessibleName("Lb_Fondo");
+        panelGrafo.getAccessibleContext().setAccessibleName("Lb_Fondo");
 
         deleteArista.setText("Eliminar Arista");
 
@@ -80,33 +90,46 @@ public class interfaz extends javax.swing.JFrame {
 
         jb_buscarRuta.setText("Buscar ruta");
 
+        jb_cargarGrafo.setText("Cargar grafo");
+        jb_cargarGrafo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_cargarGrafoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1041, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(updateVertice, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                                .addComponent(updateArista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(deleteArista, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(deleteVertice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cb_verticeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jb_buscarRuta)))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(updateVertice, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                                    .addComponent(updateArista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(deleteArista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(deleteVertice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jTf_ejeX, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cb_verticeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTf_ejeY, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jb_cargarGrafo)
+                                .addComponent(jb_buscarRuta)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,9 +138,15 @@ public class interfaz extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb_verticeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(95, 95, 95)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTf_ejeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTf_ejeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jb_buscarRuta)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
+                .addComponent(jb_cargarGrafo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(deleteArista)
@@ -127,12 +156,24 @@ public class interfaz extends javax.swing.JFrame {
                 .addComponent(updateArista)
                 .addGap(28, 28, 28)
                 .addComponent(updateVertice)
-                .addContainerGap(61, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void panelGrafoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelGrafoMouseClicked
+        // TODO add your handling code here:
+        jTf_ejeX.setText(String.valueOf(evt.getX()));
+        jTf_ejeY.setText(String.valueOf(evt.getY()));
+        dibujarCirculo(panelGrafo.getGraphics(),evt.getX(), evt.getY());
+    }//GEN-LAST:event_panelGrafoMouseClicked
+
+    private void jb_cargarGrafoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarGrafoMouseClicked
+        // TODO add your handling code here:
+        iniciar();
+    }//GEN-LAST:event_jb_cargarGrafoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -168,60 +209,188 @@ public class interfaz extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void iniciar(){
-        
-        metodo.crearVertice("A");
-        metodo.crearVertice("B");
-        metodo.crearVertice("C");
-        metodo.crearVertice("D");
-        metodo.crearVertice("E");
+
+    public void iniciar() {
+        crearVerticesInicio();
+        crearAristasInicio();
         cargarComboBox();
-        metodo.crearArista("A", "E", 5);
-        metodo.crearArista("A", "D", 10);
-        metodo.crearArista("B", "C", 8);
-        metodo.crearArista("C", "D", 20);
-        metodo.crearArista("D", "E", 17);
-        metodo.rutasHabilitadas("A");
-        metodo.rutasHabilitadas("B");
-        metodo.rutasHabilitadas("C");
-        metodo.rutasHabilitadas("D");        
-        metodo.rutasHabilitadas("E");
-        metodo.eliminarVertice("A");
-        metodo.mostrarListaVertices();
-        metodo.rutasHabilitadas("A");
-        metodo.rutasHabilitadas("B");
-        metodo.rutasHabilitadas("C");
-        metodo.rutasHabilitadas("D");        
-        metodo.rutasHabilitadas("E");
-        
-        metodo.actualizarAristaBuscar("B", "C", 25);
-        metodo.rutasHabilitadas("B");
-        metodo.rutasHabilitadas("C");
     }
     
-    public void cargarComboBox(){
+    public void dibujarCirculo(Graphics g, int x, int y){
+        g.setColor(Color.red);
+        //g.drawOval(x, y, 40,40);
+        g.fillOval(x, y, 10, 10);
+    }
+    
+    public void dibujarArista(Graphics g, int inicioX, int inicioY, int destinoX, int destinoY){
+        g.setColor(Color.BLUE);
+        g.drawLine(inicioX, inicioY, destinoX, destinoY);
+    }
+
+    public void cargarComboBox() {
         DefaultComboBoxModel mdlInicio = new DefaultComboBoxModel();
         DefaultComboBoxModel mdlFinal = new DefaultComboBoxModel();
         cb_verticeInicio.setModel(mdlInicio);
         cb_verticeFinal.setModel(mdlFinal);
         ArrayList<String> lista = metodo.mostrarListaVertices();
-        for(int i=0;i<lista.size();i++){
+        for (int i = 0; i < lista.size(); i++) {
             String nombre = lista.get(i);
             mdlInicio.addElement(nombre);
             mdlFinal.addElement(nombre);
         }
     }
 
+    public void crearVerticesInicio() {
+        metodo.crearVertice("A", 203, 78);
+        dibujarCirculo(panelGrafo.getGraphics(), 203, 78);
+        metodo.crearVertice("B", 203, 165);
+        dibujarCirculo(panelGrafo.getGraphics(), 203, 165);
+        metodo.crearVertice("C", 203, 268);
+        dibujarCirculo(panelGrafo.getGraphics(), 203, 268);
+        metodo.crearVertice("D", 203, 365);
+        dibujarCirculo(panelGrafo.getGraphics(), 203, 365);
+        metodo.crearVertice("E", 312, 126);
+        dibujarCirculo(panelGrafo.getGraphics(), 312, 126);
+        metodo.crearVertice("F", 312, 213);
+        dibujarCirculo(panelGrafo.getGraphics(), 312, 213);
+        metodo.crearVertice("G", 312, 315);
+        dibujarCirculo(panelGrafo.getGraphics(), 312, 315);
+        metodo.crearVertice("H", 398, 75);
+        dibujarCirculo(panelGrafo.getGraphics(), 398, 75);
+        metodo.crearVertice("I", 398, 172);
+        dibujarCirculo(panelGrafo.getGraphics(), 398, 172);
+        metodo.crearVertice("J", 398, 274);
+        dibujarCirculo(panelGrafo.getGraphics(), 398, 274);
+        metodo.crearVertice("K", 398, 373);
+        dibujarCirculo(panelGrafo.getGraphics(), 398, 373);
+        metodo.crearVertice("L", 476, 118);
+        dibujarCirculo(panelGrafo.getGraphics(), 476, 118);
+        metodo.crearVertice("M", 476, 223);
+        dibujarCirculo(panelGrafo.getGraphics(), 476, 223);
+        metodo.crearVertice("N", 476, 317);
+        dibujarCirculo(panelGrafo.getGraphics(), 476, 317);
+        metodo.crearVertice("Ñ", 550, 68);
+        dibujarCirculo(panelGrafo.getGraphics(), 550, 68);
+        metodo.crearVertice("O", 550, 173);
+        dibujarCirculo(panelGrafo.getGraphics(), 550, 173);
+        metodo.crearVertice("P", 550, 277);
+        dibujarCirculo(panelGrafo.getGraphics(), 550, 277);
+        metodo.crearVertice("Q", 550, 373);
+        dibujarCirculo(panelGrafo.getGraphics(), 550, 373);
+        metodo.crearVertice("R", 656, 125);
+        dibujarCirculo(panelGrafo.getGraphics(), 656, 125);
+        metodo.crearVertice("S", 656, 208);
+        dibujarCirculo(panelGrafo.getGraphics(), 656, 208);
+        metodo.crearVertice("T", 656, 291);
+        dibujarCirculo(panelGrafo.getGraphics(), 656, 291);
+        metodo.crearVertice("U", 656, 367);
+        dibujarCirculo(panelGrafo.getGraphics(), 656, 367);
+        metodo.crearVertice("V", 758, 72);
+        dibujarCirculo(panelGrafo.getGraphics(), 758, 72);
+        metodo.crearVertice("W", 758, 157);
+        dibujarCirculo(panelGrafo.getGraphics(), 758, 157);
+        metodo.crearVertice("X", 758, 260);
+        dibujarCirculo(panelGrafo.getGraphics(), 758, 260);
+        metodo.crearVertice("Y", 758, 347);
+        dibujarCirculo(panelGrafo.getGraphics(), 758, 347);
+        metodo.crearVertice("Z", 849, 116);
+        dibujarCirculo(panelGrafo.getGraphics(), 849, 116);
+        metodo.crearVertice("AA", 849, 205);
+        dibujarCirculo(panelGrafo.getGraphics(), 849, 205);
+        metodo.crearVertice("AB", 849, 305);
+        dibujarCirculo(panelGrafo.getGraphics(), 849, 305);
+    }
+    
+    public void crearAristasInicio(){
+        metodo.crearArista("A", "B", 2);
+        dibujarArista(panelGrafo.getGraphics(), metodo.buscarVertice("A").getX(), metodo.buscarVertice("A").getY(), metodo.buscarVertice("B").getX(), metodo.buscarVertice("B").getY());
+        metodo.crearArista("A", "E", 4);
+        dibujarArista(panelGrafo.getGraphics(), metodo.buscarVertice("A").getX(), metodo.buscarVertice("A").getY(), metodo.buscarVertice("E").getX(), metodo.buscarVertice("E").getY());
+        metodo.crearArista("A", "K", 3);
+        dibujarArista(panelGrafo.getGraphics(), metodo.buscarVertice("A").getX(), metodo.buscarVertice("A").getY(), metodo.buscarVertice("K").getX(), metodo.buscarVertice("K").getY());
+        metodo.crearArista("B", "C", 2);
+        metodo.crearArista("B", "F", 3);
+        metodo.crearArista("C", "D", 5);
+        metodo.crearArista("C", "G", 2);
+        metodo.crearArista("D", "G", 7);
+        metodo.crearArista("E", "J", 2);
+        metodo.crearArista("E", "K", 3);
+        metodo.crearArista("E", "B", 5);
+        metodo.crearArista("F", "E", 2);
+        metodo.crearArista("F", "J", 3);
+        metodo.crearArista("F", "I", 5);
+        metodo.crearArista("F", "G", 6);
+        metodo.crearArista("F", "C", 4);
+        metodo.crearArista("G", "I", 2);
+        metodo.crearArista("G", "H", 4);
+        metodo.crearArista("K", "Ñ", 2);
+        metodo.crearArista("K", "L", 8);
+        metodo.crearArista("K", "J", 4);
+        metodo.crearArista("J", "L", 2);
+        metodo.crearArista("J", "M", 7);
+        metodo.crearArista("J", "I", 6);
+        metodo.crearArista("I", "N", 2);
+        metodo.crearArista("I", "H", 5);
+        metodo.crearArista("H", "N", 2);
+        metodo.crearArista("H", "D", 2);
+        metodo.crearArista("L", "Ñ", 3);
+        metodo.crearArista("L", "O", 4);
+        metodo.crearArista("L", "M", 5);
+        metodo.crearArista("M", "O", 2);
+        metodo.crearArista("M", "P", 3);
+        metodo.crearArista("M", "N", 4);
+        metodo.crearArista("M", "I", 5);
+        metodo.crearArista("N", "P", 3);
+        metodo.crearArista("N", "Q", 4);
+        metodo.crearArista("Ñ", "V", 2);
+        metodo.crearArista("Ñ", "R", 4);
+        metodo.crearArista("Ñ", "O", 2);
+        metodo.crearArista("O", "R", 2);
+        metodo.crearArista("O", "S", 3);
+        metodo.crearArista("O", "P", 4);
+        metodo.crearArista("P", "T", 5);
+        metodo.crearArista("P", "S", 4);
+        metodo.crearArista("P", "Q", 3);
+        metodo.crearArista("Q", "H", 2);
+        metodo.crearArista("Q", "T", 3);
+        metodo.crearArista("R", "V", 7);
+        metodo.crearArista("R", "W", 8);
+        metodo.crearArista("R", "S", 9);
+        metodo.crearArista("S", "X", 2);
+        metodo.crearArista("S", "T", 5);
+        metodo.crearArista("T", "X", 2);
+        metodo.crearArista("T", "U", 3);
+        metodo.crearArista("U", "Q", 3);
+        metodo.crearArista("V", "Z", 3);
+        metodo.crearArista("V", "W", 4);
+        metodo.crearArista("W", "AA", 3);
+        metodo.crearArista("W", "X", 2);
+        metodo.crearArista("W", "S", 5);
+        metodo.crearArista("X", "AB", 3);
+        metodo.crearArista("X", "Y", 2);
+        metodo.crearArista("Y", "T", 5);
+        metodo.crearArista("Y", "U", 3);
+        metodo.crearArista("Z", "W", 2);
+        metodo.crearArista("Z", "AA", 2);
+        metodo.crearArista("AA", "X", 2);
+        metodo.crearArista("AB", "AA", 5);
+        metodo.crearArista("AB", "Y", 2);
+        
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cb_verticeFinal;
     private javax.swing.JComboBox cb_verticeInicio;
     private javax.swing.JToggleButton deleteArista;
     private javax.swing.JToggleButton deleteVertice;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTf_ejeX;
+    private javax.swing.JTextField jTf_ejeY;
     private javax.swing.JButton jb_buscarRuta;
+    private javax.swing.JButton jb_cargarGrafo;
+    private javax.swing.JLabel panelGrafo;
     private javax.swing.JToggleButton updateArista;
     private javax.swing.JToggleButton updateVertice;
     // End of variables declaration//GEN-END:variables

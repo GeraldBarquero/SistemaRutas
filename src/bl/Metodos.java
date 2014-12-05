@@ -20,11 +20,11 @@ public class Metodos {
 
     Grafo grafo = new Grafo();
 
-    public void crearVertice(String dato) {
+    public void crearVertice(String dato, int x, int y) {
         if (dato != null) {
-            Vertice nuevo = new Vertice(dato);
+            Vertice nuevo = new Vertice(dato, x, y);
             if (grafo.agregarVertice(nuevo)) {
-                JOptionPane.showMessageDialog(null, "Se agrego correctamente el vertice " + dato);
+                //JOptionPane.showMessageDialog(null, "Se agrego correctamente el vertice " + dato);
             }
         }
     }
@@ -49,7 +49,7 @@ public class Metodos {
 
     public void crearRuta(Vertice ini, Vertice fin, Arista arista) {
         crearRutaRecur(ini, fin, arista);
-        crearRutaRecur(fin, ini, arista);
+        //crearRutaRecur(fin, ini, arista);
     }
 
     public void crearRutaRecur(Vertice ini, Vertice fin, Arista arista) {
@@ -67,10 +67,12 @@ public class Metodos {
                 for (Ruta ruta : buscar.getListaDestinos()) {
                     listAux.add(ruta);
                 }
-            }
-            System.out.println("Destinos disponibles desde el vertice: " + nombreBuscar);
-            for (Ruta listAux1 : listAux) {
-                System.out.println("Vertice Destino: " + listAux1.getVertice().getNombre() + " Peso de la Arista: " + listAux1.getArista().getPeso());
+                System.out.println("Destinos disponibles desde el vertice: " + nombreBuscar);
+                for (Ruta listAux1 : listAux) {
+                    System.out.println("Vertice Destino: " + listAux1.getVertice().getNombre() + " Peso de la Arista: " + listAux1.getArista().getPeso());
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "El vertice '"+nombreBuscar+"' no posee rutas a otros vertices");
             }
         }else{
             JOptionPane.showMessageDialog(null, "No existe el vertice "+nombreBuscar+" en el grafo");
@@ -106,7 +108,7 @@ public class Metodos {
     public void eliminarArista(Vertice ini, Vertice fin) {
         boolean encontrado = true;
         if (!ini.getListaDestinos().isEmpty()) {
-            for (int i = 0; i <= ini.getListaDestinos().size(); i++) {
+            for (int i = 0; i < ini.getListaDestinos().size(); i++) {
                 if (ini.getListaDestinos().get(i).getVertice() == fin) {
                     ini.getListaDestinos().remove(i);
                     encontrado = true;
@@ -123,7 +125,7 @@ public class Metodos {
         }
 
         if (!fin.getListaDestinos().isEmpty()) {
-            for (int i = 0; i <= fin.getListaDestinos().size(); i++) {
+            for (int i = 0; i < fin.getListaDestinos().size(); i++) {
                 if (fin.getListaDestinos().get(i).getVertice() == ini) {
                     fin.getListaDestinos().remove(i);
                     encontrado = true;
@@ -156,7 +158,7 @@ public class Metodos {
     public boolean actualizarArista(Vertice ini, Vertice fin, int peso){
         boolean realizado = false;
         if(!ini.getListaDestinos().isEmpty()){
-            for (int i = 0; i < ini.getListaDestinos().size()+1; i++) {
+            for (int i = 0; i < ini.getListaDestinos().size(); i++) {
                 if(ini.getListaDestinos().get(i).getVertice()==fin){
                     ini.getListaDestinos().get(i).getArista().setPeso(peso);
                     realizado = true;
@@ -165,7 +167,7 @@ public class Metodos {
             }
         }
         if(!fin.getListaDestinos().isEmpty()){
-            for (int i = 0; i < fin.getListaDestinos().size()+1; i++) {
+            for (int i = 0; i < fin.getListaDestinos().size(); i++) {
                 if(fin.getListaDestinos().get(i).getVertice()==ini){
                     fin.getListaDestinos().get(i).getArista().setPeso(peso);
                     realizado = true;
@@ -175,6 +177,12 @@ public class Metodos {
         }
         
         return realizado;
+    }
+    
+    public Vertice buscarVertice(String nombre){
+        Vertice aux;
+        aux = grafo.buscarVertice(nombre);        
+        return aux;
     }
 
 }

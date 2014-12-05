@@ -28,11 +28,11 @@ public class Main {
             String dato = JOptionPane.showInputDialog("Digite un dato");
             metodo.crearVertice(dato);
         }*/
-        metodo.crearVertice("A");
+        /*metodo.crearVertice("A");
         metodo.crearVertice("B");
         metodo.crearVertice("C");
         metodo.crearVertice("D");
-        metodo.crearVertice("E");
+        metodo.crearVertice("E");*/
         metodo.mostrarListaVertices();
 
         metodo.crearArista("A", "E", 5);
