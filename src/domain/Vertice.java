@@ -15,13 +15,17 @@ import java.util.ArrayList;
 public class Vertice {
     private String Nombre;  //propiedad que hace referencia al nombre de cada vertice
     private ArrayList<Ruta> listaDestinos;
+    private int x;
+    private int y;
 
     public Vertice() {
     }
 
-    public Vertice(String Nombre) {
+    public Vertice(String Nombre, int x, int y) {
         this.Nombre = Nombre;
         listaDestinos = new ArrayList<Ruta>();
+        this.x = x;
+        this.y = y;        
     }
 
     public String getNombre() {
@@ -46,6 +50,22 @@ public class Vertice {
     
     public void addVerticeAdyacenteRecur(Ruta ruta){
         listaDestinos.add(ruta);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
     
 }
