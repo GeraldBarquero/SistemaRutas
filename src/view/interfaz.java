@@ -219,7 +219,7 @@ public class interfaz extends javax.swing.JFrame {
     public void dibujarCirculo(Graphics g, int x, int y){
         g.setColor(Color.red);
         //g.drawOval(x, y, 40,40);
-        g.fillOval(x, y, 10, 10);
+        g.fillOval(x, y, 15, 15);
     }
     
     public void dibujarArista(Graphics g, int inicioX, int inicioY, int destinoX, int destinoY){
@@ -255,14 +255,14 @@ public class interfaz extends javax.swing.JFrame {
         dibujarCirculo(panelGrafo.getGraphics(), 312, 213);
         metodo.crearVertice("G", 312, 315);
         dibujarCirculo(panelGrafo.getGraphics(), 312, 315);
-        metodo.crearVertice("H", 398, 75);
-        dibujarCirculo(panelGrafo.getGraphics(), 398, 75);
-        metodo.crearVertice("I", 398, 172);
-        dibujarCirculo(panelGrafo.getGraphics(), 398, 172);
-        metodo.crearVertice("J", 398, 274);
-        dibujarCirculo(panelGrafo.getGraphics(), 398, 274);
-        metodo.crearVertice("K", 398, 373);
+        metodo.crearVertice("H", 398, 373);
         dibujarCirculo(panelGrafo.getGraphics(), 398, 373);
+        metodo.crearVertice("I", 398, 274);
+        dibujarCirculo(panelGrafo.getGraphics(), 398, 274);
+        metodo.crearVertice("J", 398, 172);
+        dibujarCirculo(panelGrafo.getGraphics(), 398, 172);
+        metodo.crearVertice("K", 398, 75);
+        dibujarCirculo(panelGrafo.getGraphics(), 398, 75);
         metodo.crearVertice("L", 476, 118);
         dibujarCirculo(panelGrafo.getGraphics(), 476, 118);
         metodo.crearVertice("M", 476, 223);
