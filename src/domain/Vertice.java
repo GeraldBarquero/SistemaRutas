@@ -17,15 +17,51 @@ public class Vertice {
     private ArrayList<Ruta> listaDestinos;
     private int x;
     private int y;
+    
+    private int longitudCamino; //Para uso de la clase Disjktra
+    private Vertice verticeAntecesorDisjktra; //Para uso de la clase Disjktra
+    private boolean marca;//Para uso de la clase Disjktra
 
     public Vertice() {
+        inicializarParaDisjktra();
     }
 
     public Vertice(String Nombre, int x, int y) {
         this.Nombre = Nombre;
         listaDestinos = new ArrayList<Ruta>();
         this.x = x;
-        this.y = y;        
+        this.y = y; 
+        inicializarParaDisjktra();
+    }
+
+    public int getLongitudCamino() {
+        return longitudCamino;
+    }
+
+    public void setLongitudCamino(int longitudCamino) {
+        this.longitudCamino = longitudCamino;
+    }
+
+    public Vertice getVerticeAntecesorDisjktra() {
+        return verticeAntecesorDisjktra;
+    }
+
+    public void setVerticeAntecesorDisjktra(Vertice verticeAntecesorDisjktra) {
+        this.verticeAntecesorDisjktra = verticeAntecesorDisjktra;
+    }
+
+    public boolean isMarca() {
+        return marca;
+    }
+
+    public void setMarca(boolean marca) {
+        this.marca = marca;
+    }
+    
+    private void inicializarParaDisjktra(){
+        longitudCamino = -1;
+        verticeAntecesorDisjktra = null;
+        marca = false;
     }
 
     public String getNombre() {
@@ -37,6 +73,19 @@ public class Vertice {
     }
 
     public ArrayList<Ruta> getListaDestinos() {
+        ArrayList<Ruta> listAristaAux = null;
+        if(!listaDestinos.isEmpty()){
+            listAristaAux = new ArrayList<Ruta>();
+            for(Ruta rta:listaDestinos){
+                if(rta.getArista().isEstado()){
+                    listAristaAux.add(rta);
+                }
+            }
+        }
+        return listAristaAux;
+    }
+    
+    public ArrayList<Ruta> listDestinos(){
         return listaDestinos;
     }
 

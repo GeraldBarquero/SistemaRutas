@@ -9,6 +9,7 @@ import bl.Grafo;
 import domain.Arista;
 import domain.Vertice;
 import domain.Ruta;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -52,6 +53,8 @@ public class Metodos {
         Vertice fin = grafo.buscarVertice(nombreFin);
         Arista nueva = new Arista();
         nueva.setPeso(peso);
+        nueva.setEstado(true);
+        nueva.setColor(Color.BLUE);
         crearRuta(ini, fin, nueva);
     }
 
@@ -70,14 +73,13 @@ public class Metodos {
         Vertice buscar = grafo.buscarVertice(nombreBuscar);
         ArrayList<Ruta> listAux = null;
         if (buscar !=null) {
-            if (!buscar.getListaDestinos().isEmpty()) {
+            if (buscar.getListaDestinos().size() !=0) {
                 listAux = new ArrayList<Ruta>();
                 for (Ruta ruta : buscar.getListaDestinos()) {
                     listAux.add(ruta);
                 }
             }else{
             }
-        }else{
         }
         return listAux;
 
@@ -110,10 +112,10 @@ public class Metodos {
 
     public void eliminarArista(Vertice ini, Vertice fin) {
         boolean encontrado = true;
-        if (!ini.getListaDestinos().isEmpty()) {
-            for (int i = 0; i < ini.getListaDestinos().size(); i++) {
-                if (ini.getListaDestinos().get(i).getVertice() == fin) {
-                    ini.getListaDestinos().remove(i);
+        if (!ini.listDestinos().isEmpty()) {
+            for (int i = 0; i < ini.listDestinos().size(); i++) {
+                if (ini.listDestinos().get(i).getVertice() == fin) {
+                    ini.listDestinos().remove(i);
                     encontrado = true;
                     break;
                 } else {
@@ -172,5 +174,31 @@ public class Metodos {
         aux = grafo.buscarVertice(nombre);        
         return aux;
     }
-
+    
+    public Vertice buscarVertice(int x, int y){
+        Vertice verticeAuxiliar = null;
+        for(int i = 0; i < grafo.getListaVertice().size(); i++){
+            int xVertice = grafo.getListaVertice().get(i).getX();
+            int yVertice = grafo.getListaVertice().get(i).getY();
+            if(x > xVertice && x < (xVertice + 35)){
+                if(y > yVertice && y < (yVertice + 35)){
+                    verticeAuxiliar = grafo.getListaVertice().get(i);
+                    break;
+                }
+            }
+        }
+        return verticeAuxiliar;
+    }
+    
+    public void iniciarAlgoritmo(String inicio, String fin){
+        Vertice verticeInicio = buscarVertice(inicio);
+        Vertice verticeFin = buscarVertice(fin);
+        algoritmoDisjktra algoritmo = new algoritmoDisjktra(grafo);
+        algoritmo.ejecutar(verticeInicio);
+        algoritmo.marcarRuta(verticeFin);
+    }
+    
+    public void reiniciar(){
+        grafo.reiniciarAlgoritmo();
+    }
 }

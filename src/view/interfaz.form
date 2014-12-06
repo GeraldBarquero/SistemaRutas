@@ -55,6 +55,8 @@
                           <Component id="bt_deleteArista" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="bt_updateVertice" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="bt_updateArista" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jb_nuevoVertice" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jb_nuevaArista" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -83,7 +85,11 @@
               <Component id="jb_cargarGrafo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Component id="jb_nuevoVertice" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Component id="jb_nuevaArista" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="bt_deleteArista" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Component id="bt_deleteVertice" min="-2" max="-2" attributes="0"/>
@@ -91,7 +97,7 @@
               <Component id="bt_updateVertice" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Component id="bt_updateArista" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -169,6 +175,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar ruta"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jb_buscarRutaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTf_ejeX">
     </Component>
@@ -213,6 +222,16 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bt_updateAristaMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="jb_nuevoVertice">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nuevo Vertice"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="jb_nuevaArista">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nueva Arista"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
