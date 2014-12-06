@@ -7,10 +7,16 @@ package view;
 
 import bl.Grafo;
 import bl.Metodos;
+import domain.Ruta;
+import domain.Vertice;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +31,7 @@ public class interfaz extends javax.swing.JFrame {
      */
     public interfaz() {
         initComponents();
+        iniciar();
     }
 
     /**
@@ -41,14 +48,14 @@ public class interfaz extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         panelGrafo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        deleteArista = new javax.swing.JToggleButton();
-        deleteVertice = new javax.swing.JToggleButton();
-        updateArista = new javax.swing.JToggleButton();
-        updateVertice = new javax.swing.JToggleButton();
         jb_buscarRuta = new javax.swing.JButton();
         jTf_ejeX = new javax.swing.JTextField();
         jTf_ejeY = new javax.swing.JTextField();
         jb_cargarGrafo = new javax.swing.JButton();
+        bt_deleteVertice = new javax.swing.JButton();
+        bt_deleteArista = new javax.swing.JButton();
+        bt_updateVertice = new javax.swing.JButton();
+        bt_updateArista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,22 +78,14 @@ public class interfaz extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 916, Short.MAX_VALUE)
+            .addComponent(panelGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(panelGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelGrafo.getAccessibleContext().setAccessibleName("Lb_Fondo");
-
-        deleteArista.setText("Eliminar Arista");
-
-        deleteVertice.setText("Eliminar Vertice");
-
-        updateArista.setText("Actualizar Arista");
-
-        updateVertice.setText("Actualizar Vertice");
 
         jb_buscarRuta.setText("Buscar ruta");
 
@@ -94,6 +93,34 @@ public class interfaz extends javax.swing.JFrame {
         jb_cargarGrafo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_cargarGrafoMouseClicked(evt);
+            }
+        });
+
+        bt_deleteVertice.setText("Eliminar Vertice");
+        bt_deleteVertice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_deleteVerticeActionPerformed(evt);
+            }
+        });
+
+        bt_deleteArista.setText("Eliminar Arista");
+        bt_deleteArista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_deleteAristaMouseClicked(evt);
+            }
+        });
+
+        bt_updateVertice.setText("Actualizar Vertice");
+        bt_updateVertice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_updateVerticeMouseClicked(evt);
+            }
+        });
+
+        bt_updateArista.setText("Actualizar Arista");
+        bt_updateArista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_updateAristaMouseClicked(evt);
             }
         });
 
@@ -107,18 +134,11 @@ public class interfaz extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(updateVertice, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                                    .addComponent(updateArista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(deleteArista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(deleteVertice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTf_ejeX, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cb_verticeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jTf_ejeX, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cb_verticeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addComponent(cb_verticeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTf_ejeY, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -126,9 +146,16 @@ public class interfaz extends javax.swing.JFrame {
                             .addGap(22, 22, 22)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jb_cargarGrafo)
-                                .addComponent(jb_buscarRuta)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jb_buscarRuta))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bt_deleteVertice)
+                            .addComponent(bt_deleteArista)
+                            .addComponent(bt_updateVertice)
+                            .addComponent(bt_updateArista))))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -148,37 +175,76 @@ public class interfaz extends javax.swing.JFrame {
                 .addComponent(jb_cargarGrafo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(bt_deleteArista)
+                .addGap(39, 39, 39)
+                .addComponent(bt_deleteVertice)
+                .addGap(45, 45, 45)
+                .addComponent(bt_updateVertice)
                 .addGap(41, 41, 41)
-                .addComponent(deleteArista)
-                .addGap(34, 34, 34)
-                .addComponent(deleteVertice)
-                .addGap(30, 30, 30)
-                .addComponent(updateArista)
-                .addGap(28, 28, 28)
-                .addComponent(updateVertice)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(bt_updateArista)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jb_cargarGrafoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarGrafoMouseClicked
+        // TODO add your handling code here:
+        limpiarPanel(1);
+    }//GEN-LAST:event_jb_cargarGrafoMouseClicked
+
+    private void bt_deleteAristaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_deleteAristaMouseClicked
+        // TODO add your handling code here:
+        String verticeInicio = JOptionPane.showInputDialog("Digite el nombre del vertice inicio de la arista que desea eliminar");
+        String verticeFinal = JOptionPane.showInputDialog("Digite el nombre del vertice final de la arista que desea eliminar");
+        Vertice inicio = metodo.buscarVertice(verticeInicio);
+        Vertice fin = metodo.buscarVertice(verticeFinal);
+        metodo.eliminarArista(inicio, fin);
+        cargarComboBox();
+        limpiarPanel(0);
+    }//GEN-LAST:event_bt_deleteAristaMouseClicked
+
+    private void bt_deleteVerticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_deleteVerticeActionPerformed
+        // TODO add your handling code here:
+        String vertice = JOptionPane.showInputDialog("Digite el nombre del vertice a eliminar");
+        metodo.eliminarVertice(vertice);
+        cargarComboBox();
+        limpiarPanel(0);
+    }//GEN-LAST:event_bt_deleteVerticeActionPerformed
+
+    private void bt_updateVerticeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_updateVerticeMouseClicked
+        // TODO add your handling code here:
+        String actual = JOptionPane.showInputDialog("Digite el nombre del vertice que desea actualizar");
+        String nuevo = JOptionPane.showInputDialog("Digite el nuevo nombre del vertice");
+        metodo.actualizarVertice(actual, nuevo);
+        cargarComboBox();
+        limpiarPanel(0);
+    }//GEN-LAST:event_bt_updateVerticeMouseClicked
+
+    private void bt_updateAristaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_updateAristaMouseClicked
+        // TODO add your handling code here:
+        String verticeInicio = JOptionPane.showInputDialog("Digite el nombre del vertice inicio de la arista que desea actualizar");
+        String verticeFinal = JOptionPane.showInputDialog("Digite el nombre del vertice final de la arista que desea actualizar");
+
+        int pesoNuevo = Integer.parseInt(JOptionPane.showInputDialog("Digite el nuevo valor de la arista"));
+        metodo.actualizarArista(metodo.buscarVertice(verticeInicio), metodo.buscarVertice(verticeFinal), pesoNuevo);
+        limpiarPanel(0);
+    }//GEN-LAST:event_bt_updateAristaMouseClicked
+
     private void panelGrafoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelGrafoMouseClicked
         // TODO add your handling code here:
         jTf_ejeX.setText(String.valueOf(evt.getX()));
         jTf_ejeY.setText(String.valueOf(evt.getY()));
-        dibujarCirculo(panelGrafo.getGraphics(),evt.getX(), evt.getY());
+        //dibujarCirculo(panelGrafo.getGraphics(),evt.getX(), evt.getY());
     }//GEN-LAST:event_panelGrafoMouseClicked
-
-    private void jb_cargarGrafoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarGrafoMouseClicked
-        // TODO add your handling code here:
-        iniciar();
-    }//GEN-LAST:event_jb_cargarGrafoMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -206,25 +272,73 @@ public class interfaz extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new interfaz().setVisible(true);
+
             }
         });
+
     }
 
-    public void iniciar() {
+    private void iniciar() {
         crearVerticesInicio();
         crearAristasInicio();
+    }
+
+    public void limpiarPanel(int codigo) {
+        ImageIcon fondo = new ImageIcon("../imagenes/mapaFondo.png");
+        panelGrafo.getGraphics().clearRect(0, 0, getWidth(), getHeight());
+        panelGrafo.getGraphics().drawImage(fondo.getImage(), 0, 0, 100, 100, null);
         cargarComboBox();
+        mandarDibujarAristas();
+        mandarDibujarCirculos();
+
     }
-    
-    public void dibujarCirculo(Graphics g, int x, int y){
+
+    public void dibujarCirculo(Graphics g, int x, int y, String dato) {
+        Font fuente = new Font("TimesRoman", Font.BOLD, 16);
+        g.setFont(fuente);
         g.setColor(Color.red);
-        //g.drawOval(x, y, 40,40);
-        g.fillOval(x, y, 15, 15);
-    }
-    
-    public void dibujarArista(Graphics g, int inicioX, int inicioY, int destinoX, int destinoY){
+        g.fillOval(x, y, 35, 35);
+        g.setColor(Color.BLACK);
+        g.drawOval(x, y, 35, 35);
         g.setColor(Color.BLUE);
-        g.drawLine(inicioX, inicioY, destinoX, destinoY);
+        g.drawString(dato, x + 10, y + 20);
+    }
+
+    public void dibujarArista(Graphics g, int inicioX, int inicioY, int destinoX, int destinoY, int peso) {
+        String dato = String.valueOf(peso);
+        int distanciaVertical = destinoY - inicioY;
+        int distanciaHorizontal = destinoX - inicioX;
+        Font fuente = new Font("TimesRoman", Font.BOLD, 16);
+        g.setColor(Color.BLUE);
+        g.setFont(fuente);
+        g.drawLine(inicioX + 20, inicioY + 10, destinoX + 20, destinoY + 10);
+        g.setColor(Color.YELLOW);
+        g.drawString(dato, (distanciaHorizontal / 2) + inicioX + 20, (distanciaVertical / 2) + inicioY + 10);
+    }
+
+    public void mandarDibujarAristas() {
+        ArrayList<Vertice> lista = metodo.vertices();
+        for (int i = 0; i < lista.size(); i++) {
+            ArrayList<Ruta> listDestinos = metodo.rutasHabilitadas(lista.get(i).getNombre());
+            int inicioX = lista.get(i).getX();
+            int inicioY = lista.get(i).getY();
+            for (int j = 0; j < listDestinos.size(); j++) {
+                int destinoX = listDestinos.get(j).getVertice().getX();
+                int destinoY = listDestinos.get(j).getVertice().getY();
+                int peso = listDestinos.get(j).getArista().getPeso();
+                dibujarArista(panelGrafo.getGraphics(), inicioX, inicioY, destinoX, destinoY, peso);
+            }
+        }
+    }
+
+    public void mandarDibujarCirculos() {
+        ArrayList<Vertice> lista = metodo.vertices();
+        for (int i = 0; i < lista.size(); i++) {
+            String nombreVertice = lista.get(i).getNombre();
+            int x = lista.get(i).getX();
+            int y = lista.get(i).getY();
+            dibujarCirculo(panelGrafo.getGraphics(), x, y, nombreVertice);
+        }
     }
 
     public void cargarComboBox() {
@@ -242,72 +356,40 @@ public class interfaz extends javax.swing.JFrame {
 
     public void crearVerticesInicio() {
         metodo.crearVertice("A", 203, 78);
-        dibujarCirculo(panelGrafo.getGraphics(), 203, 78);
         metodo.crearVertice("B", 203, 165);
-        dibujarCirculo(panelGrafo.getGraphics(), 203, 165);
         metodo.crearVertice("C", 203, 268);
-        dibujarCirculo(panelGrafo.getGraphics(), 203, 268);
         metodo.crearVertice("D", 203, 365);
-        dibujarCirculo(panelGrafo.getGraphics(), 203, 365);
         metodo.crearVertice("E", 312, 126);
-        dibujarCirculo(panelGrafo.getGraphics(), 312, 126);
         metodo.crearVertice("F", 312, 213);
-        dibujarCirculo(panelGrafo.getGraphics(), 312, 213);
         metodo.crearVertice("G", 312, 315);
-        dibujarCirculo(panelGrafo.getGraphics(), 312, 315);
         metodo.crearVertice("H", 398, 373);
-        dibujarCirculo(panelGrafo.getGraphics(), 398, 373);
         metodo.crearVertice("I", 398, 274);
-        dibujarCirculo(panelGrafo.getGraphics(), 398, 274);
         metodo.crearVertice("J", 398, 172);
-        dibujarCirculo(panelGrafo.getGraphics(), 398, 172);
         metodo.crearVertice("K", 398, 75);
-        dibujarCirculo(panelGrafo.getGraphics(), 398, 75);
         metodo.crearVertice("L", 476, 118);
-        dibujarCirculo(panelGrafo.getGraphics(), 476, 118);
         metodo.crearVertice("M", 476, 223);
-        dibujarCirculo(panelGrafo.getGraphics(), 476, 223);
         metodo.crearVertice("N", 476, 317);
-        dibujarCirculo(panelGrafo.getGraphics(), 476, 317);
         metodo.crearVertice("Ñ", 550, 68);
-        dibujarCirculo(panelGrafo.getGraphics(), 550, 68);
         metodo.crearVertice("O", 550, 173);
-        dibujarCirculo(panelGrafo.getGraphics(), 550, 173);
         metodo.crearVertice("P", 550, 277);
-        dibujarCirculo(panelGrafo.getGraphics(), 550, 277);
         metodo.crearVertice("Q", 550, 373);
-        dibujarCirculo(panelGrafo.getGraphics(), 550, 373);
         metodo.crearVertice("R", 656, 125);
-        dibujarCirculo(panelGrafo.getGraphics(), 656, 125);
         metodo.crearVertice("S", 656, 208);
-        dibujarCirculo(panelGrafo.getGraphics(), 656, 208);
         metodo.crearVertice("T", 656, 291);
-        dibujarCirculo(panelGrafo.getGraphics(), 656, 291);
         metodo.crearVertice("U", 656, 367);
-        dibujarCirculo(panelGrafo.getGraphics(), 656, 367);
         metodo.crearVertice("V", 758, 72);
-        dibujarCirculo(panelGrafo.getGraphics(), 758, 72);
         metodo.crearVertice("W", 758, 157);
-        dibujarCirculo(panelGrafo.getGraphics(), 758, 157);
         metodo.crearVertice("X", 758, 260);
-        dibujarCirculo(panelGrafo.getGraphics(), 758, 260);
         metodo.crearVertice("Y", 758, 347);
-        dibujarCirculo(panelGrafo.getGraphics(), 758, 347);
         metodo.crearVertice("Z", 849, 116);
-        dibujarCirculo(panelGrafo.getGraphics(), 849, 116);
         metodo.crearVertice("AA", 849, 205);
-        dibujarCirculo(panelGrafo.getGraphics(), 849, 205);
         metodo.crearVertice("AB", 849, 305);
-        dibujarCirculo(panelGrafo.getGraphics(), 849, 305);
     }
-    
-    public void crearAristasInicio(){
+
+    public void crearAristasInicio() {
         metodo.crearArista("A", "B", 2);
-        dibujarArista(panelGrafo.getGraphics(), metodo.buscarVertice("A").getX(), metodo.buscarVertice("A").getY(), metodo.buscarVertice("B").getX(), metodo.buscarVertice("B").getY());
         metodo.crearArista("A", "E", 4);
-        dibujarArista(panelGrafo.getGraphics(), metodo.buscarVertice("A").getX(), metodo.buscarVertice("A").getY(), metodo.buscarVertice("E").getX(), metodo.buscarVertice("E").getY());
         metodo.crearArista("A", "K", 3);
-        dibujarArista(panelGrafo.getGraphics(), metodo.buscarVertice("A").getX(), metodo.buscarVertice("A").getY(), metodo.buscarVertice("K").getX(), metodo.buscarVertice("K").getY());
         metodo.crearArista("B", "C", 2);
         metodo.crearArista("B", "F", 3);
         metodo.crearArista("C", "D", 5);
@@ -375,15 +457,17 @@ public class interfaz extends javax.swing.JFrame {
         metodo.crearArista("AA", "X", 2);
         metodo.crearArista("AB", "AA", 5);
         metodo.crearArista("AB", "Y", 2);
-        
+
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_deleteArista;
+    private javax.swing.JButton bt_deleteVertice;
+    private javax.swing.JButton bt_updateArista;
+    private javax.swing.JButton bt_updateVertice;
     private javax.swing.JComboBox cb_verticeFinal;
     private javax.swing.JComboBox cb_verticeInicio;
-    private javax.swing.JToggleButton deleteArista;
-    private javax.swing.JToggleButton deleteVertice;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTf_ejeX;
@@ -391,7 +475,5 @@ public class interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jb_buscarRuta;
     private javax.swing.JButton jb_cargarGrafo;
     private javax.swing.JLabel panelGrafo;
-    private javax.swing.JToggleButton updateArista;
-    private javax.swing.JToggleButton updateVertice;
     // End of variables declaration//GEN-END:variables
 }

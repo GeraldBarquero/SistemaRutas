@@ -34,9 +34,17 @@ public class Metodos {
         int cantVertice = grafo.getListaVertice().size();
         for (int i = 0; i < cantVertice; i++) {
             listaNombre.add(grafo.getListaVertice().get(i).getNombre());
-            //System.out.println("Vertice: " + grafo.getListaVertice().get(i).getNombre());
         }
         return listaNombre;
+    }
+    
+    public ArrayList vertices() {
+        ArrayList<Vertice> listVertices= new ArrayList<Vertice>();
+        int cantVertice = grafo.getListaVertice().size();
+        for (int i = 0; i < cantVertice; i++) {
+            listVertices.add(grafo.getListaVertice().get(i));
+        }
+        return listVertices;
     }
 
     public void crearArista(String nombreIni, String nombreFin, int peso) {
@@ -58,7 +66,7 @@ public class Metodos {
         }
     }
 
-    public void rutasHabilitadas(String nombreBuscar) {
+    public ArrayList rutasHabilitadas(String nombreBuscar) {
         Vertice buscar = grafo.buscarVertice(nombreBuscar);
         ArrayList<Ruta> listAux = null;
         if (buscar !=null) {
@@ -67,16 +75,11 @@ public class Metodos {
                 for (Ruta ruta : buscar.getListaDestinos()) {
                     listAux.add(ruta);
                 }
-                System.out.println("Destinos disponibles desde el vertice: " + nombreBuscar);
-                for (Ruta listAux1 : listAux) {
-                    System.out.println("Vertice Destino: " + listAux1.getVertice().getNombre() + " Peso de la Arista: " + listAux1.getArista().getPeso());
-                }
             }else{
-                JOptionPane.showMessageDialog(null, "El vertice '"+nombreBuscar+"' no posee rutas a otros vertices");
             }
         }else{
-            JOptionPane.showMessageDialog(null, "No existe el vertice "+nombreBuscar+" en el grafo");
         }
+        return listAux;
 
     }
 
@@ -94,11 +97,11 @@ public class Metodos {
                         }else{
                             Vertice aux = eliminar.getListaDestinos().get((i)).getVertice();
                             eliminarArista(aux, eliminar);
-                        }
-                        
+                        }                        
                     }
                     grafo.getListaVertice().remove(eliminar);
                 }
+                JOptionPane.showMessageDialog(null, "El vertice " + nombreEliminar + " fue eliminado correctamente");
             } else {
                 grafo.getListaVertice().remove(eliminar);
             }
@@ -119,26 +122,11 @@ public class Metodos {
             }
             if (!encontrado) {
                 JOptionPane.showMessageDialog(null, "El vertice " + ini.getNombre() + " no cuenta con una arista al vertice " + fin.getNombre());
+            }else {                
+                JOptionPane.showMessageDialog(null, "La arista entre los vertices " + ini.getNombre() + " y " + fin.getNombre()+ " fue eliminada");
             }
         } else {
             JOptionPane.showMessageDialog(null, "El vertice " + ini.getNombre() + " no cuenta con aristas");
-        }
-
-        if (!fin.getListaDestinos().isEmpty()) {
-            for (int i = 0; i < fin.getListaDestinos().size(); i++) {
-                if (fin.getListaDestinos().get(i).getVertice() == ini) {
-                    fin.getListaDestinos().remove(i);
-                    encontrado = true;
-                    break;
-                } else {
-                    encontrado = false;
-                }
-            }
-            if (!encontrado) {
-                JOptionPane.showMessageDialog(null, "El vertice " + fin.getNombre() + " no cuenta con una arista al vertice " + ini.getNombre());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "El vertice " + fin.getNombre() + " no cuenta con aristas");
         }
     }
     

@@ -29,22 +29,12 @@
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="updateVertice" alignment="0" pref="117" max="32767" attributes="0"/>
-                                  <Component id="updateArista" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="deleteArista" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="deleteVertice" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jTf_ejeX" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <Component id="cb_verticeInicio" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="cb_verticeFinal" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jTf_ejeX" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="cb_verticeInicio" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="cb_verticeFinal" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
@@ -58,9 +48,18 @@
                           </Group>
                       </Group>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="bt_deleteVertice" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_deleteArista" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_updateVertice" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_updateArista" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -84,15 +83,15 @@
               <Component id="jb_cargarGrafo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Component id="bt_deleteArista" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <Component id="bt_deleteVertice" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="bt_updateVertice" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-              <Component id="deleteArista" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="deleteVertice" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="updateArista" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Component id="updateVertice" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="63" max="32767" attributes="0"/>
+              <Component id="bt_updateArista" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -139,12 +138,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelGrafo" alignment="0" pref="916" max="32767" attributes="0"/>
+              <Component id="panelGrafo" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelGrafo" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Component id="panelGrafo" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -166,26 +165,6 @@
     </Container>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
-    <Component class="javax.swing.JToggleButton" name="deleteArista">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar Arista"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="deleteVertice">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar Vertice"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="updateArista">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Actualizar Arista"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="updateVertice">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Actualizar Vertice"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="jb_buscarRuta">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar ruta"/>
@@ -201,6 +180,38 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jb_cargarGrafoMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bt_deleteVertice">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Eliminar Vertice"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_deleteVerticeActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bt_deleteArista">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Eliminar Arista"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bt_deleteAristaMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bt_updateVertice">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Actualizar Vertice"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bt_updateVerticeMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bt_updateArista">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Actualizar Arista"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bt_updateAristaMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
