@@ -384,7 +384,7 @@ public class interfaz extends javax.swing.JFrame {
             ArrayList<Ruta> listDestinos = metodo.rutasHabilitadas(lista.get(i).getNombre());
             int inicioX = lista.get(i).getX();
             int inicioY = lista.get(i).getY();
-            if (listDestinos != null) {
+            if (listDestinos !=null) {
                 for (int j = 0; j < listDestinos.size(); j++) {
                     int destinoX = listDestinos.get(j).getVertice().getX();
                     int destinoY = listDestinos.get(j).getVertice().getY();

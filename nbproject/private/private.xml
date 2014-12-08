@@ -7,7 +7,9 @@
             <file>file:/D:/UIA/Git/SistemaRutas/src/domain/Arista.java</file>
             <file>file:/D:/UIA/Git/SistemaRutas/src/domain/Vertice.java</file>
             <file>file:/D:/UIA/Git/SistemaRutas/src/domain/Ruta.java</file>
+            <file>file:/D:/UIA/Git/SistemaRutas/src/bl/listaVertices.java</file>
             <file>file:/D:/UIA/Git/SistemaRutas/src/bl/Metodos.java</file>
+            <file>file:/D:/UIA/Git/SistemaRutas/src/bl/algoritmoDisjktra.java</file>
             <file>file:/D:/UIA/Git/SistemaRutas/src/bl/Grafo.java</file>
         </group>
     </open-files>

@@ -73,12 +73,11 @@ public class Metodos {
         Vertice buscar = grafo.buscarVertice(nombreBuscar);
         ArrayList<Ruta> listAux = null;
         if (buscar !=null) {
-            if (buscar.getListaDestinos().size() !=0) {
+            if (buscar.getListaDestinos() != null) {
                 listAux = new ArrayList<Ruta>();
                 for (Ruta ruta : buscar.getListaDestinos()) {
                     listAux.add(ruta);
                 }
-            }else{
             }
         }
         return listAux;
